@@ -11,7 +11,7 @@ export const personalInfo = {
     email: "danieldiesta00@gmail.com",
     facebook: "https://www.facebook.com/share/1KHVNxXuZJ/",
     github: "https://github.com/D4NIEL-DIAZ",
-    instagram: "https://www.instagram.com/daniel_diesta00/",
+    instagram: "https://www.instagram.com/_danyeeeeeel?igsh=MW9panR1OGZ1MzBydQ==",
     portfolio: "https://your-portfolio.vercel.app",
 };
 
