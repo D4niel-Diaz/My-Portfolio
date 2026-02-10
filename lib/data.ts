@@ -24,9 +24,10 @@ My focus is on creating clean, scalable, and reliable systems—whether it s an 
 
 // Tech Stack
 export const techStack = {
-    frontend: ["JavaScript", "TypeScript","React", "Next.js", "Tailwind CSS"],
-    backend: ["Laravel", "Python (Django)", "REST APIs", "FastAPI"],
+    frontend: ["HTML", "CSS", "JavaScript", "React", "Tailwind CSS"],
+    backend: ["Laravel", "Python (Django, FastAPI)", "REST APIs"],
     database: ["MySQL", "PostgreSQL"],
+    
 
     other: ["Git/GitHub", "Trello"],
 };
