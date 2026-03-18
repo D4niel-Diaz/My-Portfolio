@@ -16,16 +16,18 @@ export const personalInfo = {
 };
 
 /// About Section
-export const aboutContent = `I am a full-stack developer with a strong foundation in web development, specializing in building modern applications that solve real-world problems.
+export const aboutContent = `I am a Full Stack Web Developer with experience building modern web applications using Laravel, React, and MySQL. I specialize in creating responsive, user-friendly systems and efficiently handling both frontend and backend development.
 
-I ve worked as the primary developer on multiple client projects, delivering production-ready solutions using technologies such as Next.js, React, Laravel, REST APIs, MySQL, and PostgreSQL.
+I have experience deploying applications using platforms like Vercel for frontend and Render for backend services, ensuring scalable and reliable production environments.
 
-My focus is on creating clean, scalable, and reliable systems—whether it s an AI-driven web app, a real-time tracking platform, or a smart embedded solution. I enjoy turning complex ideas into practical, high-impact digital products.`;
+One of my notable projects is soNonymous, an anonymous messaging platform designed for SORSU students, showcasing my ability to develop practical and engaging web solutions.
+
+I am highly adaptable, quick to learn new technologies, and committed to continuous improvement. I am passionate about building efficient and innovative applications that enhance user experience.`;
 
 // Tech Stack
 export const techStack = {
     frontend: ["HTML", "CSS", "JavaScript", "React", "Tailwind CSS"],
-    backend: ["Laravel", "Python (Django, FastAPI)", "REST APIs"],
+    backend: ["PHP", "Laravel", "REST APIs"],
     database: ["MySQL", "PostgreSQL"],
     
 
@@ -64,14 +66,22 @@ export const experiences: Experience[] = [
             "Created modules for product tracking, reporting, and database optimization.",
         ],
     },
+    {
+        title: "SoNynomous - Real-Time Anonymous Messaging Platform",
+        client: "Student of Sorsogon State University",
+        description: [
+            ".A web-based anonymous messaging platform built with React and Laravel.",
+        ],
+    },
 ];
 
 
 // Achievements
 export const achievements = [
     "Developed a full backend for an inventory management system using Laravel and REST API.",
-    "Built a full-stack web-based chat application using React and Laravel.",
+    "Built a full-stack web-based chat application using React, Laravel and MySQL.",
     "Created a web-based inventory management system using PHP and MySQL.",
+    "Built a real-time anonymous messaging platform using React, Laravel and MySQL.",
 ];
 
 
@@ -98,6 +108,13 @@ export const projects: Project[] = [
         tags: ["Laravel", "REST API"],
         url: "",
         image: "/photos/inventory.png",
+    },
+    {
+        title: "SoNynomous - Real-Time Anonymous Messaging Platform",
+        description: "A web-based anonymous messaging platform built with React and Laravel",
+        tags: ["React", "Laravel"],
+        url: "",
+        image: "/photos/Son.png",
     },
 ];
 
