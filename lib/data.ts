@@ -31,7 +31,7 @@ export const techStack = {
     database: ["MySQL", "PostgreSQL"],
     
 
-    other: ["Git/GitHub", "Trello"],
+    other: ["Git/GitHub", "Vercel", "Render", "Vscode", "Figma", "Postman", "Docker"]
 };
 
 // Experience
