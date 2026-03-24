@@ -70,7 +70,7 @@ export const experiences: Experience[] = [
         title: "SoNynomous - Real-Time Anonymous Messaging Platform",
         client: "Student of Sorsogon State University",
         description: [
-            ".A web-based anonymous messaging platform built with React and Laravel.",
+            "A web based platform built with React and Laravel that allows users to send anonymous messages in real-time, Also, I used redis for caching and queue management to ensure fast and reliable message delivery. ",
         ],
     },
 ];
