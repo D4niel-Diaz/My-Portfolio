@@ -13,7 +13,6 @@ const galleryImages = [
     { id: 4, src: "/photos/d4.jpg", alt: "Photo 4" },
     { id: 5, src: "/photos/d5.jpg", alt: "Photo 5" },
     { id: 6, src: "/photos/d6.jpg", alt: "Photo 6" },
-    { id: 7, src: "/photos/d8.jpg", alt: "Photo 7" },
     { id: 8, src: "/photos/d.jpg", alt: "Photo 8" },
 ];
 
