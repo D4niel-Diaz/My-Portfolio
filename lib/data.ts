@@ -16,13 +16,11 @@ export const personalInfo = {
 };
 
 /// About Section
-export const aboutContent = `I am a Full Stack Web Developer with experience building modern web applications using Laravel, React, and MySQL. I specialize in creating responsive, user-friendly systems and efficiently handling both frontend and backend development.
+export const aboutContent = `Full Stack Web Developer with experience building modern, scalable web applications using Laravel, React, and MySQL. Skilled in both frontend and backend development, with a focus on creating responsive, user-friendly systems.
 
-I have experience deploying applications using platforms like Vercel for frontend and Render for backend services, ensuring scalable and reliable production environments.
+Experienced in deploying applications using Vercel and Render, ensuring reliable production environments. Developed projects like soNonymous, an anonymous messaging platform for SORSU students.
 
-One of my notable projects is soNonymous, an anonymous messaging platform designed for SORSU students, showcasing my ability to develop practical and engaging web solutions.
-
-I am highly adaptable, quick to learn new technologies, and committed to continuous improvement. I am passionate about building efficient and innovative applications that enhance user experience.`;
+Adaptable and fast-learning, with a strong commitment to continuous improvement and delivering efficient, high-quality solutions.`;
 
 // Tech Stack
 export const techStack = {
