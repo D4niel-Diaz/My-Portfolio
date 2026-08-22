@@ -14,6 +14,9 @@
   --muted-foreground: #525252;
   --border: #E5E5E5;
   --border-secondary: #D4D4D4;
+  /* Matches the card fill (bg-white / dark:bg-neutral-900). Anything that has
+     to fade into a card edge — e.g. the logo marquee — references this. */
+  --card-surface: #FFFFFF;
   color-scheme: light;
 }
 
@@ -29,6 +32,7 @@
   --muted-foreground: #8A8A8A;
   --border: #262626;
   --border-secondary: #373737;
+  --card-surface: #171717;
   color-scheme: dark;
 }
 
@@ -49,7 +53,11 @@ html {
 body {
   background-color: var(--background);
   color: var(--foreground);
-  min-height: 100vh;
+  /* dvh, not vh: on mobile browsers 100vh includes the collapsing address bar,
+     which leaves the page a scrollbar's worth too tall. */
+  min-height: 100dvh;
+  /* Nothing should scroll sideways, whatever a long word or wide image does. */
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* Smooth transition for theme switching */
@@ -93,4 +101,30 @@ body {
 
 .dark ::selection {
   background: rgba(255, 255, 255, 0.1);
+}
+
+/* Keyboard focus. Components that need a different colour override this with
+   their own focus-visible:ring-* utilities, which outrank a bare selector. */
+:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
+}
+
+/* Respect the OS "reduce motion" setting.
+   Framer Motion reads the same media query via useReducedMotion(), which
+   handles the JS-driven animations; this covers CSS transitions, the smooth
+   scroll, and anything either of us missed. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

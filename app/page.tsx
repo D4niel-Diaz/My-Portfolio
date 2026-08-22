@@ -1,5 +1,7 @@
-"use client";
-
+// No "use client" here on purpose: this file only composes sections, so it can
+// stay a server component and ship none of its own JS. Each section opts into
+// the client itself.
+import { Card } from "@/components/ui/card";
 import { Hero } from "@/components/sections/hero";
 import { About } from "@/components/sections/about";
 import { TechStack } from "@/components/sections/tech-stack";
@@ -13,72 +15,58 @@ import { Footer } from "@/components/sections/footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-neutral-50 dark:bg-neutral-950 py-8 px-4 transition-colors duration-300">
+    <main className="min-h-dvh bg-neutral-50 dark:bg-neutral-950 py-8 px-4 transition-colors duration-300">
       <div className="max-w-4xl mx-auto">
-        {/* Hero Section with Theme Toggle */}
         <Hero />
 
-        {/* Divider */}
         <hr className="border-neutral-200 dark:border-neutral-800 my-6" />
 
-        {/* Main Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-          {/* Left Column - About & Tech Stack */}
           <div className="lg:col-span-3 flex flex-col gap-6">
-            {/* About Card */}
-            <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 p-6 transition-colors duration-300">
+            <Card>
               <About />
-            </div>
+            </Card>
 
-            {/* Local Time Card - Mobile only (shows after About on mobile) */}
-            <div className="lg:hidden bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 p-4 transition-colors duration-300">
+            {/* The clock follows About on mobile, but belongs to the right-hand
+                column on desktop, so it is rendered in both and hidden in one. */}
+            <Card padding="sm" className="lg:hidden">
               <TimezoneClock />
-            </div>
+            </Card>
 
-            {/* Tech Stack Card - flex-grow to fill space */}
-            <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 p-6 flex-grow transition-colors duration-300">
+            <Card className="flex-grow">
               <TechStack />
-            </div>
+            </Card>
           </div>
 
-          {/* Right Column - Time & Experience */}
           <div className="lg:col-span-2 flex flex-col gap-6">
-            {/* Timezone Clock Card - Desktop only */}
-            <div className="hidden lg:block bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 p-4 transition-colors duration-300">
+            <Card padding="sm" className="hidden lg:block">
               <TimezoneClock />
-            </div>
+            </Card>
 
-            {/* Experience Card - flex-grow to fill space */}
-            <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 p-6 flex-grow transition-colors duration-300">
+            <Card className="flex-grow">
               <Experience />
-            </div>
+            </Card>
           </div>
         </div>
 
-        {/* Achievements & Social Links Row */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-          {/* Achievements Card */}
-          <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 p-6 transition-colors duration-300">
+          <Card>
             <Achievements />
-          </div>
+          </Card>
 
-          {/* Social Links Card */}
-          <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 p-6 transition-colors duration-300">
+          <Card>
             <SocialLinks />
-          </div>
+          </Card>
         </div>
 
-        {/* Projects Card */}
-        <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 p-6 mt-6 transition-colors duration-300">
+        <Card className="mt-6">
           <Projects />
-        </div>
+        </Card>
 
-        {/* Gallery Card */}
-        <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 p-6 mt-6 transition-colors duration-300">
+        <Card className="mt-6">
           <Gallery />
-        </div>
+        </Card>
 
-        {/* Footer */}
         <Footer />
       </div>
     </main>

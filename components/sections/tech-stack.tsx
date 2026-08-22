@@ -1,10 +1,13 @@
 "use client";
 
-import { motion, useInView, AnimatePresence } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
-import { Code2, X } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { Code2 } from "lucide-react";
 import { techStack } from "@/lib/data";
-import { fadeInUp } from "@/lib/utils";
+import { fadeInUp, popItem, staggerParent, respectMotion } from "@/lib/motion";
+import { useReveal } from "@/lib/hooks/use-reveal";
+import { SectionHeading } from "@/components/ui/section-heading";
+import { LogoLoop, type LogoItem } from "@/components/ui/logo-loop";
+import { TECH_LOGOS } from "./tech-logos";
 
 const categoryLabels: Record<keyof typeof techStack, string> = {
     frontend: "Frontend",
@@ -13,137 +16,105 @@ const categoryLabels: Record<keyof typeof techStack, string> = {
     other: "Other Skills"
 };
 
-export function TechStack() {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-50px" });
-    const [isModalOpen, setIsModalOpen] = useState(false);
+/**
+ * Every tech that has a brand mark, flattened in the order it appears in the
+ * data. Built once at module scope: LogoLoop is memoised and measures on
+ * `logos` identity, so a new array each render would thrash it.
+ */
+const TECH_LOGO_ITEMS: LogoItem[] = Object.values(techStack)
+    .flat()
+    .flatMap((tech) => {
+        const logo = TECH_LOGOS[tech];
+        if (!logo) return [];
+        const Icon = logo.icon;
+        return [{ node: <Icon />, title: tech, ariaLabel: tech, href: logo.href }];
+    });
 
-    const categories = Object.keys(techStack) as Array<keyof typeof techStack>;
-    const visibleCategories = categories.slice(0, 2);
+/** Uniform cards that wrap into as many columns as the container allows. */
+const GRID_CLASS = "grid grid-cols-[repeat(auto-fill,minmax(5.25rem,1fr))] gap-2";
 
-    useEffect(() => {
-        if (isModalOpen) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "";
-        }
-        return () => {
-            document.body.style.overflow = "";
-        };
-    }, [isModalOpen]);
+const CARD_CLASS =
+    "flex flex-col items-center justify-center gap-2 rounded-xl border border-neutral-200 dark:border-neutral-700 px-2 py-3.5 text-center transition-colors hover:border-neutral-400 dark:hover:border-neutral-500";
 
+/**
+ * Brand mark over its label. Icons carry their own brand colour where one
+ * exists; the rest inherit the theme's text colour so black/white marks such as
+ * GitHub and Vercel stay legible in both themes.
+ */
+function TechMark({ tech }: { tech: string }) {
+    const logo = TECH_LOGOS[tech];
+    const Icon = logo?.icon ?? Code2;
     return (
         <>
-            <motion.div
-                ref={ref}
-                variants={fadeInUp}
-                initial="hidden"
-                animate={isInView ? "visible" : "hidden"}
-            >
-                <div className="flex items-center justify-between mb-3">
-                    <h2 className="text-lg font-semibold text-neutral-900 dark:text-white flex items-center gap-2">
-                        <Code2 size={18} className="text-neutral-500" />
-                        Tech Stack
-                    </h2>
-                    {categories.length > 2 && (
-                        <button
-                            onClick={() => setIsModalOpen(true)}
-                            className="text-xs text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300 transition-colors font-medium"
-                        >
-                            View All
-                        </button>
-                    )}
-                </div>
-
-                <div className="space-y-4">
-                    {visibleCategories.map((category, categoryIndex) => (
-                        <div key={category}>
-                            <h3 className="text-sm font-medium text-neutral-500 dark:text-neutral-500 mb-2">
-                                {categoryLabels[category]}
-                            </h3>
-                            <div className="flex flex-wrap gap-2">
-                                {techStack[category].map((tech, index) => (
-                                    <motion.span
-                                        key={tech}
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                                        transition={{
-                                            delay: categoryIndex * 0.05 + index * 0.02,
-                                            duration: 0.2,
-                                        }}
-                                        className="px-3 py-1.5 rounded-full border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 text-xs font-medium hover:border-neutral-400 dark:hover:border-neutral-500 transition-colors"
-                                    >
-                                        {tech}
-                                    </motion.span>
-                                ))}
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </motion.div>
-
-            {/* Modal Popup */}
-            <AnimatePresence>
-                {isModalOpen && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-50 flex items-center justify-center p-4"
-                        onClick={() => setIsModalOpen(false)}
-                    >
-                        {/* Backdrop */}
-                        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-
-                        {/* Modal Content */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            transition={{ duration: 0.2 }}
-                            onClick={(e) => e.stopPropagation()}
-                            className="relative w-full max-w-lg max-h-[80vh] bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl border border-neutral-200 dark:border-neutral-700 overflow-hidden flex flex-col"
-                        >
-                            {/* Header - Fixed */}
-                            <div className="flex items-center justify-between p-6 pb-4 border-b border-neutral-200 dark:border-neutral-800">
-                                <h2 className="text-xl font-semibold text-neutral-900 dark:text-white flex items-center gap-2">
-                                    <Code2 size={20} className="text-neutral-500" />
-                                    Tech Stack
-                                </h2>
-                                <button
-                                    onClick={() => setIsModalOpen(false)}
-                                    className="p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
-                                >
-                                    <X size={20} className="text-neutral-500" />
-                                </button>
-                            </div>
-
-                            {/* Scrollable Content */}
-                            <div className="overflow-y-auto p-6 pt-4">
-                                <div className="space-y-5">
-                                    {categories.map((category) => (
-                                        <div key={category}>
-                                            <h3 className="text-sm font-medium text-neutral-500 dark:text-neutral-400 mb-2">
-                                                {categoryLabels[category]}
-                                            </h3>
-                                            <div className="flex flex-wrap gap-2">
-                                                {techStack[category].map((tech) => (
-                                                    <span
-                                                        key={tech}
-                                                        className="px-3 py-1.5 rounded-full border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 text-xs font-medium"
-                                                    >
-                                                        {tech}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            <Icon
+                aria-hidden="true"
+                className="w-7 h-7 text-neutral-900 dark:text-white"
+                style={logo?.color ? { color: logo.color } : undefined}
+            />
+            <span className="text-xs font-semibold leading-tight text-neutral-800 dark:text-neutral-200">
+                {tech}
+            </span>
         </>
+    );
+}
+
+export function TechStack() {
+    const { ref, animate } = useReveal();
+    const reduced = useReducedMotion();
+
+    const categories = Object.keys(techStack) as Array<keyof typeof techStack>;
+
+    const chip = respectMotion(popItem, reduced);
+
+    return (
+        <motion.section
+            ref={ref}
+            aria-labelledby="tech-stack-heading"
+            variants={fadeInUp}
+            initial="hidden"
+            animate={animate}
+        >
+            <SectionHeading id="tech-stack-heading" icon={Code2} className="mb-3">
+                Tech Stack
+            </SectionHeading>
+
+            {/* Marquee of everything with a brand mark, above the
+                categorised cards that name them. */}
+            <LogoLoop
+                logos={TECH_LOGO_ITEMS}
+                speed={40}
+                direction="left"
+                logoHeight={26}
+                gap={36}
+                hoverSpeed={0}
+                scaleOnHover
+                fadeOut
+                fadeOutColor="var(--card-surface)"
+                ariaLabel="Technologies I work with"
+                className="mb-5 text-neutral-500 dark:text-neutral-400"
+            />
+
+            <div className="space-y-4">
+                {categories.map((category, categoryIndex) => (
+                    <div key={category}>
+                        <h3 className="text-xs font-medium uppercase tracking-widest text-neutral-500 dark:text-neutral-500 mb-2">
+                            {categoryLabels[category]}
+                        </h3>
+                        <motion.ul
+                            variants={staggerParent(0.03, categoryIndex * 0.08)}
+                            initial="hidden"
+                            animate={animate}
+                            className={GRID_CLASS}
+                        >
+                            {techStack[category].map((tech) => (
+                                <motion.li key={tech} variants={chip} className={CARD_CLASS}>
+                                    <TechMark tech={tech} />
+                                </motion.li>
+                            ))}
+                        </motion.ul>
+                    </div>
+                ))}
+            </div>
+        </motion.section>
     );
 }

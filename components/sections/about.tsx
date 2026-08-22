@@ -1,36 +1,48 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { User } from "lucide-react";
 import { aboutContent } from "@/lib/data";
-import { fadeInUp } from "@/lib/utils";
+import { fadeInUp, riseItem, staggerParent, respectMotion } from "@/lib/motion";
+import { useReveal } from "@/lib/hooks/use-reveal";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 export function About() {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-50px" });
+    const { ref, animate } = useReveal();
+    const reduced = useReducedMotion();
+    const item = respectMotion(riseItem, reduced);
+
+    const paragraphs = aboutContent.split("\n\n");
 
     return (
-        <motion.div
+        <motion.section
             ref={ref}
+            aria-labelledby="about-heading"
             variants={fadeInUp}
             initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
+            animate={animate}
         >
-            <h2 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3 flex items-center gap-2">
-                <User size={18} className="text-neutral-500" />
+            <SectionHeading id="about-heading" icon={User} className="mb-3">
                 About
-            </h2>
-            <div className="space-y-3">
-                {aboutContent.split("\n\n").map((paragraph, index) => (
-                    <p
+            </SectionHeading>
+            <motion.div
+                variants={staggerParent(0.1)}
+                initial="hidden"
+                animate={animate}
+                className="space-y-3"
+            >
+                {paragraphs.map((paragraph, index) => (
+                    <motion.p
                         key={index}
-                        className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
+                        variants={item}
+                        // text-pretty stops the last line of a paragraph ending
+                        // on a single orphaned word.
+                        className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed text-pretty"
                     >
                         {paragraph}
-                    </p>
+                    </motion.p>
                 ))}
-            </div>
-        </motion.div>
+            </motion.div>
+        </motion.section>
     );
 }

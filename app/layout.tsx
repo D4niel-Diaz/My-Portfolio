@@ -10,7 +10,14 @@ const poppins = Poppins({
   display: "swap",
 });
 
+/**
+ * Set NEXT_PUBLIC_SITE_URL to the deployed origin. Without a metadataBase,
+ * Next resolves the OG image against localhost and social previews break.
+ */
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://your-portfolio.vercel.app";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Daniel Diaz | Full-Stack Developer",
   description:
     "Full-stack developer specializing in modern web platforms. Building production-ready solutions with Next.js, Laravel, REST APIs, and more.",
@@ -31,17 +38,17 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://your-portfolio.vercel.app",
+    url: siteUrl,
     siteName: "Daniel Diaz Portfolio",
-    title: "Daniel Diaz | Full-Stack ",
+    title: "Daniel Diaz | Full-Stack Developer",
     description:
-      "Full-stack specializing in modern web platforms.",
+      "Full-stack developer specializing in modern web platforms.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Asnor Sumdad Portfolio",
+        alt: "Daniel Diaz Portfolio",
       },
     ],
   },

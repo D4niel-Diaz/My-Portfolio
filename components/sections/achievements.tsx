@@ -1,45 +1,62 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { achievements } from "@/lib/data";
-import { fadeInUp } from "@/lib/utils";
 import { Award, Trophy } from "lucide-react";
+import { fadeInUp, staggerParent, respectMotion, DURATION, EASE_OUT_QUINT } from "@/lib/motion";
+import { useReveal } from "@/lib/hooks/use-reveal";
+import { SectionHeading } from "@/components/ui/section-heading";
+
+const slideItem = {
+    hidden: { opacity: 0, x: -12 },
+    visible: {
+        opacity: 1,
+        x: 0,
+        transition: { duration: DURATION.slow, ease: EASE_OUT_QUINT },
+    },
+};
 
 export function Achievements() {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-50px" });
+    const { ref, animate } = useReveal();
+    const reduced = useReducedMotion();
+    const item = respectMotion(slideItem, reduced);
 
     return (
-        <motion.div
+        <motion.section
             ref={ref}
+            aria-labelledby="achievements-heading"
             variants={fadeInUp}
             initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
+            animate={animate}
         >
-            <h2 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3 flex items-center gap-2">
-                <Trophy size={18} className="text-neutral-500" />
+            <SectionHeading id="achievements-heading" icon={Trophy} className="mb-3">
                 Achievements
-            </h2>
+            </SectionHeading>
 
-            <div className="space-y-3">
-                {achievements.map((achievement, index) => (
-                    <motion.div
-                        key={index}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={isInView ? { opacity: 1, x: 0 } : {}}
-                        transition={{ delay: index * 0.1 }}
+            <motion.ul
+                variants={staggerParent(0.08)}
+                initial="hidden"
+                animate={animate}
+                className="space-y-3"
+            >
+                {achievements.map((achievement) => (
+                    <motion.li
+                        key={achievement}
+                        variants={item}
                         className="flex items-start gap-3"
                     >
-                        <div className="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center flex-shrink-0">
+                        <div
+                            className="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center flex-shrink-0"
+                            aria-hidden="true"
+                        >
                             <Award className="w-4 h-4 text-amber-600 dark:text-amber-500" />
                         </div>
-                        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                        <p className="text-sm text-neutral-600 dark:text-neutral-400 min-w-0">
                             {achievement}
                         </p>
-                    </motion.div>
+                    </motion.li>
                 ))}
-            </div>
-        </motion.div>
+            </motion.ul>
+        </motion.section>
     );
 }
