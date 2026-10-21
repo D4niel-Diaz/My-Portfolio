@@ -445,3 +445,11 @@ export function createFluidSimulation(
         programs.forEach(program => gl.deleteProgram(program));
         return null;
     }
+
+
+    // The framebuffer setup and frame loop are not implemented yet, so keep
+    // this optional effect on its documented no-op path.
+    shaders.forEach(shader => gl.deleteShader(shader));
+    programs.forEach(program => gl.deleteProgram(program));
+    return null;
+}
