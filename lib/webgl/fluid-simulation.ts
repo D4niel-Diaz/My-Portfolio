@@ -406,11 +406,13 @@ export function createFluidSimulation(
 
     const baseVertexShader = compileShader(gl.VERTEX_SHADER, BASE_VERTEX_SHADER);
     if (!baseVertexShader) return null;
+    const vertexShader = baseVertexShader;
 
     /** Compile a fragment shader and link it against the shared vertex stage. */
     function fragmentProgram(source: string, keywords?: string[]): CompiledProgram | null {
         const shader = compileShader(gl.FRAGMENT_SHADER, source, keywords);
-        return shader && createProgram(baseVertexShader, shader);
+        if (!shader) return null;
+        return createProgram(vertexShader, shader);
     }
 
     const copyProgram = fragmentProgram(COPY_SHADER);
