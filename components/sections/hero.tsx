@@ -117,7 +117,7 @@ export function Hero() {
                         <Button
                             variant="primary"
                             size="sm"
-                            onClick={() => window.open("/resume1.pdf", "_blank", "noopener,noreferrer")}
+                            onClick={() => window.open("/Daniel_Diaz_Resume.pdf", "_blank", "noopener,noreferrer")}
                             className="gap-1.5 sm:gap-2 text-xs sm:text-sm px-2 sm:px-4 py-1.5 sm:py-2"
                             aria-label="Download resume (PDF, opens in a new tab)"
                         >
