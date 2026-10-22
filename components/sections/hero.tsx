@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { MapPin, Download, Send } from "lucide-react";
+import { MapPin, Send } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -114,16 +114,6 @@ export function Hero() {
                         variants={fadeInUp}
                         className="flex flex-row flex-wrap gap-2 sm:gap-3 mt-2 sm:mt-4"
                     >
-                        <Button
-                            variant="primary"
-                            size="sm"
-                            onClick={() => window.open("/Daniel_Diaz_Resume.pdf", "_blank", "noopener,noreferrer")}
-                            className="gap-1.5 sm:gap-2 text-xs sm:text-sm px-2 sm:px-4 py-1.5 sm:py-2"
-                            aria-label="Download resume (PDF, opens in a new tab)"
-                        >
-                            <Download size={12} className="sm:w-3.5 sm:h-3.5" />
-                            <span className="hidden sm:inline">Download </span>Resume
-                        </Button>
                         <Button
                             variant="outline"
                             size="sm"
