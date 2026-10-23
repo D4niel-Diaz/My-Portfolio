@@ -82,20 +82,16 @@ export function TimezoneClock() {
         >
             {header}
 
-            <div className="flex items-center justify-between gap-3">
-                <div className="min-w-0">
-                    {/* tabular-nums keeps the digits from jittering each second. */}
-                    <p className="text-2xl font-semibold text-neutral-900 dark:text-white font-mono tabular-nums">
-                        <time dateTime={time.toISOString()}>{timeFormat.format(time)}</time>
-                    </p>
-                    <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-0.5 truncate">
-                        {dateFormat.format(time)}
-                    </p>
-                </div>
-                <div className="flex items-center gap-1 text-xs text-neutral-400 flex-shrink-0">
-                    <MapPin size={12} />
+            <div className="timezone-clock-readout">
+                {/* tabular-nums keeps the digits from jittering each second. */}
+                <p className="timezone-clock-time">
+                    <time dateTime={time.toISOString()}>{timeFormat.format(time)}</time>
+                </p>
+                <p className="timezone-clock-date">{dateFormat.format(time)}</p>
+                <p className="timezone-clock-zone">
+                    <MapPin size={11} aria-hidden="true" />
                     <span>Philippines</span>
-                </div>
+                </p>
             </div>
         </motion.section>
     );
