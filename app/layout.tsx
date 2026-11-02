@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { ThemeProvider } from "next-themes";
+import { SmoothScroll } from "@/components/layout/smooth-scroll";
+import { RevealRoot } from "@/components/layout/reveal-root";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -72,6 +74,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={poppins.variable}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion-ready');` }} />
+      </head>
       <body className="antialiased">
         <ThemeProvider
           attribute="class"
@@ -80,6 +85,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <SmoothScroll />
+          <RevealRoot />
         </ThemeProvider>
       </body>
     </html>

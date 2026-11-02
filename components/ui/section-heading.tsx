@@ -15,6 +15,7 @@ export function SectionHeading({ id, icon: Icon, children, className = "" }: Sec
     return (
         <h2
             id={id}
+            data-reveal
             className={`text-lg font-semibold text-neutral-900 dark:text-white flex items-center gap-2 ${className}`}
         >
             <Icon size={18} className="text-neutral-500" aria-hidden="true" />

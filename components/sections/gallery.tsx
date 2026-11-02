@@ -5,11 +5,11 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight, Images, Expand } from "lucide-react";
 import Image from "next/image";
 import { galleryPhotos } from "@/lib/data";
-import { fadeInUp, EASE_OUT_EXPO, DURATION } from "@/lib/motion";
+import { EASE_OUT_EXPO, DURATION } from "@/lib/motion";
 import { Lightbox } from "@/components/ui/lightbox";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { usePageVisible } from "@/lib/hooks/use-page-visible";
-import { useReveal } from "@/lib/hooks/use-reveal";
+import { useMounted } from "@/lib/hooks/use-mounted";
 
 const IMAGES_PER_PAGE = 4;
 const AUTO_SCROLL_INTERVAL = 5000;
@@ -17,9 +17,9 @@ const AUTO_SCROLL_INTERVAL = 5000;
 const SWIPE_THRESHOLD = 60;
 
 export function Gallery() {
-    const { ref, animate } = useReveal();
     const reduced = useReducedMotion();
     const pageVisible = usePageVisible();
+    const mounted = useMounted();
 
     const [[currentPage, direction], setPage] = useState<[number, number]>([0, 0]);
     const [isHovered, setIsHovered] = useState(false);
@@ -74,12 +74,9 @@ export function Gallery() {
 
     return (
         <>
-            <motion.section
-                ref={ref}
+            <section
                 aria-labelledby="gallery-heading"
-                variants={fadeInUp}
-                initial="hidden"
-                animate={animate}
+                data-reveal
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 onFocusCapture={() => setHasFocus(true)}
@@ -123,7 +120,7 @@ export function Gallery() {
                             key={currentPage}
                             custom={direction}
                             variants={slide}
-                            initial="enter"
+                            initial={mounted ? "enter" : false}
                             animate="center"
                             exit="exit"
                             transition={{ duration: DURATION.base, ease: EASE_OUT_EXPO }}
@@ -148,7 +145,7 @@ export function Gallery() {
                                     <motion.button
                                         key={image.id}
                                         type="button"
-                                        initial={reduced ? false : { opacity: 0, scale: 0.94 }}
+                                        initial={false}
                                         animate={{ opacity: 1, scale: 1 }}
                                         transition={{
                                             delay: reduced ? 0 : index * 0.06,
@@ -201,7 +198,7 @@ export function Gallery() {
                 <p className="sr-only" aria-live="polite">
                     Page {currentPage + 1} of {totalPages}
                 </p>
-            </motion.section>
+            </section>
 
             <Lightbox
                 images={galleryPhotos}

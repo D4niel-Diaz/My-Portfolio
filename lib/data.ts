@@ -4,7 +4,7 @@ export const personalInfo = {
     role: "Full-Stack Developer",
     tagline: "Building modern web applications",
     location: "Sorsogon City, Philippines",
-    email: "danieldiesta00@gmail.com",
+    email: "daniel.diaz.code@gmail.com",
     facebook: "https://www.facebook.com/share/1KHVNxXuZJ/",
     github: "https://github.com/D4NIEL-DIAZ",
     instagram: "https://www.instagram.com/_danyeeeeeel?igsh=MW9panR1OGZ1MzBydQ==",

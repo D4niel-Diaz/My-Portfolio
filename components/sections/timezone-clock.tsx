@@ -1,13 +1,10 @@
 "use client";
 
 import { useEffect, useId, useState } from "react";
-import { motion } from "framer-motion";
 import { Clock, MapPin } from "lucide-react";
-import { fadeInUp } from "@/lib/motion";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { useMounted } from "@/lib/hooks/use-mounted";
 import { usePageVisible } from "@/lib/hooks/use-page-visible";
-import { useReveal } from "@/lib/hooks/use-reveal";
 
 const TIME_ZONE = "Asia/Manila";
 
@@ -27,9 +24,6 @@ const dateFormat = new Intl.DateTimeFormat("en-US", {
 });
 
 export function TimezoneClock() {
-    const { ref, animate } = useReveal();
-    // The page renders this card twice — mobile and desktop — and hides one, so
-    // the heading id has to be unique per instance rather than hard-coded.
     const headingId = useId();
     const mounted = useMounted();
     const pageVisible = usePageVisible();
@@ -59,27 +53,15 @@ export function TimezoneClock() {
     // the first client tick — otherwise the markup mismatches on hydration.
     if (!mounted) {
         return (
-            <motion.section
-                ref={ref}
-                aria-labelledby={headingId}
-                variants={fadeInUp}
-                initial="hidden"
-                animate="visible"
-            >
+            <section aria-labelledby={headingId} data-reveal>
                 {header}
                 <div className="h-12 rounded-lg bg-neutral-100 dark:bg-neutral-800 animate-pulse" />
-            </motion.section>
+            </section>
         );
     }
 
     return (
-        <motion.section
-            ref={ref}
-            aria-labelledby={headingId}
-            variants={fadeInUp}
-            initial="hidden"
-            animate={animate}
-        >
+        <section aria-labelledby={headingId} data-reveal>
             {header}
 
             <div className="timezone-clock-readout">
@@ -93,6 +75,6 @@ export function TimezoneClock() {
                     <span>Philippines</span>
                 </p>
             </div>
-        </motion.section>
+        </section>
     );
 }
