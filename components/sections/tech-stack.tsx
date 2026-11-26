@@ -10,7 +10,7 @@ const categoryLabels: Record<keyof typeof techStack, string> = {
     frontend: "Frontend",
     backend: "Backend",
     database: "Database & Cloud",
-    other: "Other Skills"
+    tools: "Tools"
 };
 
 /**

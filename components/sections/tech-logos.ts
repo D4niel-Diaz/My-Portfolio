@@ -15,8 +15,11 @@ import {
     SiFigma,
     SiPostman,
     SiDocker,
+    SiClaude,
+    SiBrevo,
 } from "react-icons/si";
-import { Webhook, FileCode2 } from "lucide-react";
+import { FaAws } from "react-icons/fa";
+import { Webhook, FileCode2, Bot, Sparkles } from "lucide-react";
 
 /** Both react-icons and lucide marks satisfy this, so they can share one map. */
 type TechIcon = ComponentType<SVGProps<SVGSVGElement>>;
@@ -38,7 +41,8 @@ type TechLogo = {
  *
  * "REST APIs" is a concept rather than a product, and simple-icons carries no
  * VS Code mark (Microsoft's is trademark-restricted), so both fall back to a
- * generic lucide glyph.
+ * generic lucide glyph. The same goes for OpenAI and Higgsfield, which
+ * simple-icons doesn't carry either.
  */
 export const TECH_LOGOS: Record<string, TechLogo> = {
     HTML: { icon: SiHtml5, href: "https://developer.mozilla.org/docs/Web/HTML", color: "#E34F26" },
@@ -58,4 +62,9 @@ export const TECH_LOGOS: Record<string, TechLogo> = {
     Figma: { icon: SiFigma, href: "https://www.figma.com", color: "#F24E1E" },
     Postman: { icon: SiPostman, href: "https://www.postman.com", color: "#FF6C37" },
     Docker: { icon: SiDocker, href: "https://www.docker.com", color: "#2496ED" },
+    AWS: { icon: FaAws, href: "https://aws.amazon.com", color: "#FF9900" },
+    Claude: { icon: SiClaude, href: "https://claude.ai", color: "#D97757" },
+    "Codex/ChatGPT": { icon: Bot, href: "https://chatgpt.com" },
+    "Higgsfield AI": { icon: Sparkles, href: "https://higgsfield.ai" },
+    "Brevo Email": { icon: SiBrevo, href: "https://www.brevo.com", color: "#0B996E" },
 };

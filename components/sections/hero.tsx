@@ -54,11 +54,12 @@ export function Hero() {
                         <span className="portrait-figure-label">Fig. 01</span>
                         <div className="hero-portrait">
                             <Image
-                                src="/avatar2.jpg"
+                                src="/Avatar1.png"
                                 alt={`${personalInfo.name}, ${personalInfo.role}`}
-                                width={1254}
-                                height={1254}
-                                sizes="(max-width: 620px) 76vw, (max-width: 900px) 42vw, 440px"
+                                width={1024}
+                                height={1024}
+                                sizes="(max-width: 620px) 90vw, 600px"
+                                quality={95}
                                 className="hero-portrait-image"
                                 priority
                             />
