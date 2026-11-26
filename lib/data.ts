@@ -35,7 +35,7 @@ export const techStack = {
     database: ["MySQL", "PostgreSQL"],
     
 
-    other: ["Git/GitHub", "Vercel", "Render", "Vscode", "Figma", "Postman", "Docker"]
+    tools: ["Git/GitHub", "Vercel", "Render", "Vscode", "Figma", "Postman", "Docker", "AWS", "Claude", "Codex/ChatGPT", "Higgsfield AI", "Brevo Email"]
 };
 
 // Experience
@@ -100,11 +100,25 @@ interface Project {
 
 export const projects: Project[] = [
     {
-        title: "SoChat -  web-based chat application",
-        description: "A real-time chat application for sorsu students",
+        title: "SoTalk - Anonymous Real-Time Chat",
+        description: "Anonymous one-to-one chat for SorSU students. Pick a topic, get matched with a stranger on campus, and chat in real time. Includes moderation, reports, and an admin dashboard.",
+        tags: ["React", "Laravel", "WebSockets", "PostgreSQL"],
+        url: "https://frontend-amber-two-68se8ar6bj.vercel.app/",
+        image: "/sotalk.png",
+    },
+    {
+        title: "Mt. Pulog Tour Guide Booking System",
+        description: "Booking platform for hikes to Mt. Pulog in Bacon, Sorsogon, with admin and tourist portals, GCash deposits, email notifications, and PDF e-certificates.",
+        tags: ["React", "TypeScript", "Laravel", "MySQL"],
+        url: "https://mt-pulog-frontend.vercel.app",
+        image: "/mtpulog.png",
+    },
+    {
+        title: "SoNymous - Anonymous SorSU Wall",
+        description: "A web-based anonymous messaging platform built with React and Laravel. Demo is front end only.",
         tags: ["React", "Laravel"],
-        url: "",
-        image: "/photos/sochat.png",
+        url: "https://sonymous-frontend.vercel.app/",
+        image: "/photos/Son.png",
     },
     {
         title: "Inventory Management System",
@@ -112,13 +126,6 @@ export const projects: Project[] = [
         tags: ["Laravel", "REST API"],
         url: "",
         image: "/photos/inventory.png",
-    },
-    {
-        title: "SoNynomous - Real-Time Anonymous Messaging Platform",
-        description: "A web-based anonymous messaging platform built with React and Laravel",
-        tags: ["React", "Laravel"],
-        url: "",
-        image: "/photos/Son.png",
     },
 ];
 
